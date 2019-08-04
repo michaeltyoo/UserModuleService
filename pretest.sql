@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2019 at 06:15 PM
+-- Generation Time: Aug 04, 2019 at 03:48 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -50,7 +50,7 @@ INSERT INTO `module` (`module_id`, `module_code`, `module_name`) VALUES
 --
 
 CREATE TABLE `user` (
-  `USER_ID` double NOT NULL,
+  `user_id` double NOT NULL,
   `USER_CODE` varchar(20) DEFAULT NULL,
   `USER_NAME` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -59,7 +59,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`USER_ID`, `USER_CODE`, `USER_NAME`) VALUES
+INSERT INTO `user` (`user_id`, `USER_CODE`, `USER_NAME`) VALUES
 (1, 'user_a', 'UserA'),
 (2, 'user_b', 'UserB'),
 (3, 'user_c', 'UserC');
@@ -112,7 +112,7 @@ ALTER TABLE `module`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`USER_ID`),
+  ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `USER_CODE` (`USER_CODE`);
 
 --
@@ -132,27 +132,20 @@ ALTER TABLE `user_module`
 ALTER TABLE `module`
   MODIFY `module_id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `module`
---
-ALTER TABLE `module`
-  ADD CONSTRAINT `module_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `user_module` (`MODULE_ID`);
-
---
--- Constraints for table `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user_module` (`user_id`);
+  MODIFY `user_id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for table `user_module`
 --
 ALTER TABLE `user_module`
-  ADD CONSTRAINT `FKdumwbspcn1puuim2ksbj3s4ix` FOREIGN KEY (`user_id`) REFERENCES `user` (`USER_ID`),
-  ADD CONSTRAINT `FKqp0fom6we9us1fljjhk6d1i80` FOREIGN KEY (`MODULE_ID`) REFERENCES `module` (`module_id`);
+  ADD CONSTRAINT `FKdumwbspcn1puuim2ksbj3s4ix` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FKqp0fom6we9us1fljjhk6d1i80` FOREIGN KEY (`MODULE_ID`) REFERENCES `module` (`module_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
